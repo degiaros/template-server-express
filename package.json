@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "npm run build && npm run serve",
-    "start:dev": "npm run watch-node",
+    "start:dev": "npm run build && npm run watch-node",
     "start:dev:docker": "docker-compose up",
     "build": "npm run build:clean && npm run build-babel && npm run lint:fix",
     "build:clean": "rm -rf dist/*",
