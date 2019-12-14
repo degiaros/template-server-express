@@ -1,0 +1,60 @@
+{
+  "name": "server-template-babel",
+  "version": "1.0.0",
+  "description": "Numbers generator",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">= 12",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "start": "npm run build && npm run serve",
+    "start:dev": "npm run watch-node",
+    "start:dev:docker": "docker-compose up",
+    "build": "npm run build:clean && npm run build-babel && npm run lint:fix",
+    "build:clean": "rm -rf dist/*",
+    "build-babel": "babel -d dist -x .js,.jsx ./src/",
+    "serve": "node dist/server.js",
+    "test": "jest --forceExit --coverage --verbose",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"Babel,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-babel\" \"npm run watch-node\"",
+    "watch-node": "nodemon --require 'dotenv/config' --require 'babel-register' dist/server.js",
+    "watch-test": "npm run test -- --watchAll",
+    "watch-babel": "babel --watch src --out-dir dist -x .js,.jsx",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Babel,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-babel\" \"npm run serve-debug\"",
+    "lint": "eslint src/**.js --ignore-path .gitignore .",
+    "lint:fix": "eslint src/**.js  --fix --ignore-path .gitignore .",
+    "fresh-install": "rm -rf node_modules && npm cache clean --force && npm install"
+  },
+  "author": "samdjro",
+  "license": "ISC",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/dist"
+  ],
+  "dependencies": {
+    "babel-register": "^6.26.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "concurrently": "^5.0.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  }
+}

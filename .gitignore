@@ -1,0 +1,13 @@
+.env
+node_modules
+.vscode
+*.log
+npm-debug.*
+.DS_Store
+.vscode
+npm-error.log
+debug.log
+coverage
+package-lock.json
+typings
+dist
